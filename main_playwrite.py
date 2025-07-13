@@ -8,6 +8,7 @@ from browser_use.controller.service import Controller
 from langchain_google_genai import ChatGoogleGenerativeAI
 from pydantic import BaseModel, SecretStr
 from playwright.async_api import async_playwright
+from dotenv import load_dotenv
 
 
 # Define the model for the checkout result
@@ -48,8 +49,7 @@ async def get_page_title(browser: BrowserContext):
 
 
 async def siteValidation():
-    os.environ["GEMINI_API_KEY"] = "AIzaSyB8S3XvgD2UL3IqvKKaTz_MBZz_weV7Dn4"
-
+    load_dotenv()
     # Set the task for the agent
     task = (
         'Important: I am UI Automation tester validating the task'
