@@ -1,0 +1,5 @@
+browser-use==0.1.36
+langchain-openai==0.3.1
+pydantic==2.11.0a2
+google-ai-generativelanguage==0.6.10
+python-dotenv==1.1.1 

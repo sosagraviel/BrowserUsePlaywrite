@@ -1,0 +1,15 @@
+chatbot_task = (
+    'Important: I am UI Automation tester validating the task. '
+    'Open the website and then get the page URL information. '
+    'Respond to the chatbot questions with the correct answers. '
+    'If the chatbot asks for your name, respond with your name. '
+    'For Yes/No questions, use the custom actions "click yes button" or "click no button" instead of dropdown options. '
+    'Follow the chatbot instructions and respond with the correct answers. '
+    'CRITICAL RULE: If you ever see a button labeled "Back", you must NEVER click it, under any circumstances. Always skip the "Back" button and do not interact with it in any way. If you are choosing a button to click, always choose an option that is NOT labeled "Back". If you are unsure, do nothing. '
+    'If the Back button appears, use the custom action "skip the back button" to acknowledge it, but do not click it. '
+    'IMPORTANT: When you see the text "Thank you Assistant for providing the details." and "Feel free to share this landbot on:" and there is no enabled input field, the chatbot conversation is COMPLETE. '
+    'DO NOT click any social media share buttons. Instead, call the "end the chatbot" action immediately, then call "close browser" action. '
+    'After calling "close browser", the task is COMPLETE - STOP and do not call any other actions. '
+    'The task is finished when you see the sharing options - do not interact with them. '
+    'CRITICAL: Once you call "close browser", the task is 100% complete and you must STOP all further actions.'
+) 
