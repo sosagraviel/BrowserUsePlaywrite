@@ -5,10 +5,10 @@ from browser_use.agent.service import Agent
 from browser_use.agent.views import ActionResult
 from browser_use.browser.context import BrowserContext
 from browser_use.controller.service import Controller
-from langchain_anthropic import ChatAnthropic
-from pydantic import BaseModel, SecretStr
-from playwright.async_api import async_playwright
 from dotenv import load_dotenv
+from langchain_anthropic import ChatAnthropic
+from playwright.async_api import async_playwright
+from pydantic import BaseModel, SecretStr
 
 
 # Define the model for the checkout result - this is the output of the agent after it has completed the task and is used to validate the result.
@@ -17,19 +17,22 @@ class CheckoutResult(BaseModel):
     message: str
     list_of_questions: list[str]
 
+
 # Controller actions are as cucumber steps, once defined, they are called by the agent.
 controller = Controller(output_model=CheckoutResult)
 
+
 @controller.action('skip the back button')
-#BrowserContext has the whole Playwright browser instance
+# BrowserContext has the whole Playwright browser instance
 async def skip_back_button(browser: BrowserContext):
-    #get_current_page() returns the current page object, and you can use it to interact with the page.
+    # get_current_page() returns the current page object, and you can use it to interact with the page.
     page = await browser.get_current_page()
     print(">>> Custom skip_back_button action called!")
-    #get_by_role('button').get_by_label('Back') returns the back button element, and you can use it to interact with the button.
+    # get_by_role('button').get_by_label('Back') returns the back button element, and you can use it to interact with the button.
     back_button = page.get_by_role('button').get_by_label('Back')
     # ActionResult is the result of the action, it is used to return the result of the action to the agent.
     return ActionResult(extracted_content='back button skipped')
+
 
 @controller.action('open base website')
 async def open_base_website(browser: BrowserContext):
@@ -48,7 +51,8 @@ async def get_page_title(browser: BrowserContext):
     endOption = await page.get_by_text("Feel free to share this landbot on:")
     # Select the send button by its class to avoid strict mode violation
     send_button = await page.locator("button.input-icon-send-button").text_content()
-    print(">>> Custom get_page_title action called! current_url:", current_url, "atr:", atr, "send_button:", send_button, "endOption:", endOption)
+    print(">>> Custom get_page_title action called! current_url:", current_url, "atr:", atr, "send_button:",
+          send_button, "endOption:", endOption)
     return ActionResult(
         extracted_content=f'The page url is {current_url} and the input value is {atr} and the button text is {send_button} and the endOption is {endOption}')
 
@@ -122,13 +126,13 @@ async def siteValidation():
     if isinstance(test_result, str):
         test_result = json.loads(test_result)
     print(test_result)
-    
+
     # Handle case where agent fails due to API overload or other errors
     if test_result is None:
         print(">>> Agent failed, but the chatbot flow was completed successfully!")
         print(">>> The agent reached the finish condition and attempted to end the chatbot")
         return
-        
+
     validated_result = CheckoutResult.model_validate(test_result)
     assert validated_result.success == True
     # assert test_result.message == "Checkout successful"
