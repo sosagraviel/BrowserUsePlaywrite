@@ -1,5 +1,6 @@
 import asyncio
 import os
+from typing import Optional
 
 from browser_use.agent.service import Agent
 from browser_use.agent.views import ActionResult
@@ -9,6 +10,7 @@ from dotenv import load_dotenv
 from langchain_anthropic import ChatAnthropic
 from playwright.async_api import async_playwright
 from pydantic import BaseModel, SecretStr
+from langfuse.decorators import observe
 
 
 # Define the model for the checkout result - this is the output of the agent after it has completed the task and is used to validate the result.
@@ -16,6 +18,7 @@ class CheckoutResult(BaseModel):
     success: bool
     message: str
     list_of_questions: list[str]
+    extracted_content: Optional[str] = None
 
 
 # Controller actions are as cucumber steps, once defined, they are called by the agent.
@@ -97,6 +100,7 @@ async def close_browser(browser: BrowserContext):
     return ActionResult(extracted_content='browser closed')
 
 
+@observe()
 async def siteValidation():
     load_dotenv()
 

@@ -2,7 +2,9 @@ import os
 from dotenv import load_dotenv
 from langchain_anthropic import ChatAnthropic
 from browser_use.agent.service import Agent
+from langfuse.decorators import observe
 
+@observe()
 def run_chatbot_agent(controller, task):
     # Load environment variables from .env file
     load_dotenv()

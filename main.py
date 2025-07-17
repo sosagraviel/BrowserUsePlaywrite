@@ -6,6 +6,7 @@ from browser_use.agent.service import Agent
 from browser_use.controller.service import Controller
 from langchain_google_genai import ChatGoogleGenerativeAI
 from pydantic import BaseModel, SecretStr
+from langfuse.decorators import observe
 
 
 # Define the model for the checkout result
@@ -18,6 +19,7 @@ class Checkout(BaseModel):
 controller = Controller(output_model=Checkout)
 
 
+@observe()
 async def siteValidation():
     # Load environment variables from .env file
     load_dotenv()
