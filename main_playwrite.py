@@ -9,6 +9,7 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from pydantic import BaseModel, SecretStr
 from playwright.async_api import async_playwright
 from dotenv import load_dotenv
+from langfuse.decorators import observe
 
 
 # Define the model for the checkout result
@@ -48,6 +49,7 @@ async def get_page_title(browser: BrowserContext):
         extracted_content=f'The page url is {current_url} and the input value is {atr} and the button text is {send_button}')
 
 
+@observe()
 async def siteValidation():
     load_dotenv()
     # Set the task for the agent

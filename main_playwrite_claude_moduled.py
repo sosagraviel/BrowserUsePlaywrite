@@ -3,9 +3,11 @@ from controllers.chatbot_controller import controller
 from tasks.chatbot_task import chatbot_task
 from services.agent_service import run_chatbot_agent
 from models.result_models import CheckoutResult
+from langfuse.decorators import observe
 import json
 
 
+@observe()
 async def main():
     history = await run_chatbot_agent(controller, chatbot_task)
     history.save_to_file("agent_results.json")
