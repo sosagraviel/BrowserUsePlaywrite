@@ -97,6 +97,15 @@ BrowserUsePlaywrite/
    VALIDATION_FIELD_TYPE=insurance
    ```
 
+## Run the Test files
+
+The `agent_results.json` it is a file generated after run the test in the path `result/`, the validation result is taken from it, so it is important to delete it each time the test is executed, in other case when run the `VALIDATION_FIELD_TYPE=financial_advisor python main_playwrite_claude_moduled_judge.py` it only going to evaluate the result from the `agent_results.json` and not going to open the browser
+
+ **main test to validate chatbot**
+   ```bash
+    VALIDATION_FIELD_TYPE=financial_advisor python main_playwrite_claude_moduled_judge.py
+   ```
+
 ## Validation Field Types
 
 The `VALIDATION_FIELD_TYPE` environment variable determines which domain-specific validation rules and criteria are applied to your chatbot conversations. This ensures that the validation system evaluates conversations according to the appropriate domain context.
