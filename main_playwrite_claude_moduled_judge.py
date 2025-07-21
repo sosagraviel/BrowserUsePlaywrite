@@ -15,6 +15,7 @@ os.environ["LANGFUSE_SECRET_KEY"] = "sk-lf-f2a2b892-60e7-4477-a615-002cb7e16b92"
 os.environ["LANGFUSE_HOST"] = "http://localhost:3000"
 
 
+# The decorator is used to observe the chatbot conversation and save the result in the langfuse platform
 @observe()
 async def main():
     # Add a custom trace id for this run
